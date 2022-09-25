@@ -6,7 +6,7 @@ bins_num = 256
 
 # Inputting the cropped image of solar panel i.e. background is cropped will result is proper threshold
 # For actual image use 2d_DJI.jpg
-image = io.imread('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\2d_DJI.jpg')
+image = io.imread('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\2D_DJI.jpg')
 # Get the image histogram
 hist, bin_edges = np.histogram(image, bins=bins_num)
 
