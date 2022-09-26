@@ -83,7 +83,6 @@ for c in range(ran):
 
 maxBcv = bcv.index(max(bcv))  # Index of the max value in bcv list, i.e. x-axis value, i.e. the Pixel Value
 
-
 fig1, axs1 = plt.subplots(nrows=3, ncols=2)
 
 axs1[0][0].plot(w0)
@@ -117,6 +116,15 @@ axs[1][0].imshow(refImg, cmap='inferno')
 axs[1][1].imshow(bwImage, cmap='binary')
 plt.show()
 plt.close()
+
+maskedImage = image * (bwImage != 0)
+invertMaskedImage = image * (bwImage != 1)
+
+io.imsave('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\BW_DJI.jpg', bwImage)
+io.imsave('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\Masked_DJI.jpg',
+          maskedImage)
+io.imsave('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\InvertMasked_DJI.jpg'
+          , invertMaskedImage)
 
 """
 plt.subplot(121)
