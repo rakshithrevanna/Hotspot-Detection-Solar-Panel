@@ -1,12 +1,16 @@
 import numpy as np
 from skimage import io
+from pathlib import Path
+
+
+workDir = str(Path.cwd())
 
 # Set total number of bins in the histogram
 bins_num = 256
 
 # Inputting the cropped image of solar panel i.e. background is cropped will result is proper threshold
-# For actual image use 2d_DJI.jpg
-image = io.imread('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\2D_DJI.jpg')
+# For actual image use 2D_DJI.jpg
+image = io.imread(workDir + "/2D_DJI.jpg")
 # Get the image histogram
 hist, bin_edges = np.histogram(image, bins=bins_num)
 

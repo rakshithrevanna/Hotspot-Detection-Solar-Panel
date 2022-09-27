@@ -4,20 +4,24 @@ Achieved threshold value very near to Original Algorithm
 i.e. Original Algorithm = 137.95, This Algorithm = 139
 Author: Rakshith R
 """
+from pathlib import Path
+import numpy
 from PIL import Image
 from skimage import io
 import matplotlib.pyplot as plt
 from numpy import asarray
 
+workDir = str(Path.cwd())
+
 # Reading the image and splitting the color channels and saving the split image -> Package used PIL
-im = Image.open(r"C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\DJI.jpg")
+im = Image.open(workDir + "/DJI.jpg")
 im1 = Image.Image.split(im)
 # im1[0].show()
 imf = im1[0]  # im1[0] = Red channel, Similarly im1[1] = Green and im1[2] = Blue
-imf.save("C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\2D_DJI.jpg")
+imf.save(workDir + "/2D_DJI.jpg")
 
 # Reading the image and for Histogram -> Package used skimage
-image = io.imread('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\2D_DJI.jpg')
+image = io.imread(workDir + "/2D_DJI.jpg")
 
 # Plotting the Histogram -> Package used matplotlib
 count, bins, patches = plt.hist(image.ravel(), bins=256)  # Saving the return of plt.hist
@@ -108,23 +112,25 @@ for y in range(rows):
         else:
             bwImage[y, x] = 0
 
-fig, axs = plt.subplots(nrows=2, ncols=2)
-
-axs[0][0].imshow(image)
-axs[0][1].imshow(refImg, cmap='Greys')
-axs[1][0].imshow(refImg, cmap='inferno')
-axs[1][1].imshow(bwImage, cmap='binary')
-plt.show()
-plt.close()
-
 maskedImage = image * (bwImage != 0)
 invertMaskedImage = image * (bwImage != 1)
 
-io.imsave('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\BW_DJI.jpg', bwImage)
-io.imsave('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\Masked_DJI.jpg',
-          maskedImage)
-io.imsave('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\InvertMasked_DJI.jpg'
-          , invertMaskedImage)
+# bwImage = bwImage.astype(numpy.uint8)
+maskedImage = maskedImage.astype(numpy.uint8)
+invertMaskedImage = invertMaskedImage.astype(numpy.uint8)
+
+io.imsave(workDir + "/BW_DJI.jpg", bwImage)
+io.imsave(workDir + "/Masked_DJI.jpg", maskedImage)
+io.imsave(workDir + "/InvertMasked_DJI.jpg", invertMaskedImage)
+
+fig, axs = plt.subplots(nrows=2, ncols=2)
+
+axs[0][0].imshow(refImg, cmap='Greys')
+axs[0][1].imshow(refImg, cmap='inferno')
+axs[1][0].imshow(bwImage, cmap='binary')
+axs[1][1].imshow(maskedImage, cmap='Greys')
+plt.show()
+plt.close()
 
 """
 plt.subplot(121)

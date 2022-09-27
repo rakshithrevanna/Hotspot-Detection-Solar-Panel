@@ -5,14 +5,17 @@ Then finding the difference between each element and plotting the graph with the
 We get Corners which is used to crop the image
 Author: Rakshith R
 """
+from pathlib import Path
 from PIL import Image
 from skimage import io
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import asarray
 
+workDir = str(Path.cwd())
+
 # In the future, it will be redundant since block of code used to convert gray image to B/W image based and threshold
-image = io.imread('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\mi2.jpg')
+image = io.imread(workDir + "/BW_DJI.jpg")
 
 rows, cols = np.shape(image)
 bwImage = [[1 for x in range(cols)] for y in range(rows)]
@@ -72,11 +75,11 @@ colMax2 = dCol.index(min(dCol))
 #         X  ,    X   ,    Y   ,   y
 print(rowMax1, rowMax2, colMax1, colMax2)
 
-#  Cropping the Image with bellow mentionined corners
+#  Cropping the Image with bellow mentioned corners
 box = (colMax1, rowMax1, colMax2, rowMax2)
-img = Image.open(r"C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\DJI.jpg")
+img = Image.open(workDir + "/DJI.jpg")
 croppedImage = img.crop(box)
-croppedImage.save('C:\\Users\\Rakshith R\\Documents\\PycharmProjects\\Hotspot-Detection-Solar-Panel\\Main\\cropped.jpg')
+croppedImage.save(workDir + "/cropped.jpg")
 croppedImage.show()
 
 
